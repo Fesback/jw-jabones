@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	html {
+		scroll-behavior: smooth;
+	}
+
+	body {
+		background-color: #f2e8d9;
+		color: #3a2e22;
+		font-family: 'Jost', 'Helvetica Neue', Arial, sans-serif;
+		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility;
+		overflow-x: hidden;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family: 'Cormorant Garamond', Georgia, serif;
+		color: #3a2e22;
+		font-weight: 500;
+	}
+
+	::selection {
+		background-color: #c17a4e;
+		color: #ffffff;
+	}
+
+	/* Lenis smooth scroll */
+	html.lenis,
+	html.lenis body {
+		height: auto;
+	}
+
+	.lenis.lenis-smooth {
+		scroll-behavior: auto !important;
+	}
+
+	.lenis.lenis-smooth [data-lenis-prevent] {
+		overscroll-behavior: contain;
+	}
+
+	.lenis.lenis-stopped {
+		overflow: hidden;
+	}
+}
+
+@layer components {
+	.eyebrow {
+		@apply text-[11px] font-medium uppercase tracking-widest3 text-hunter-green-600;
+	}
+
+	.btn-primary {
+		@apply inline-flex items-center justify-center gap-2 rounded-full bg-terracotta px-8 py-4 text-sm font-medium uppercase tracking-widest2 text-white shadow-glow transition-all duration-300 hover:bg-terracotta-600 hover:-translate-y-0.5;
+	}
+
+	.btn-outline {
+		@apply inline-flex items-center justify-center gap-2 rounded-full border border-pine-teal/20 px-7 py-3.5 text-xs font-medium uppercase tracking-widest2 text-pine-teal-300 transition-all duration-300 hover:border-terracotta hover:bg-terracotta hover:text-white;
+	}
+
+	.card {
+		@apply rounded-4xl border border-pine-teal/10 bg-ecru shadow-soft backdrop-blur-sm;
+	}
+}
+
+@layer utilities {
+	.no-scrollbar {
+		scrollbar-width: none;
+	}
+
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+}

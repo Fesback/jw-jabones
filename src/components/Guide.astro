@@ -1,0 +1,87 @@
+---
+/**
+ * Guía — sección didáctica: cómo elegir tu producto y cómo cuidarlo.
+ */
+const chooseTips = [
+	{
+		title: '¿Cuál es tu Jabón Corporal?',
+		body: 'Elige según tu piel y tu momento del día. Por la mañana apuesta por el café y cacao, o la menta y hierba luisa, para despertar; por la noche, por la lavanda y avena para relajarte.',
+		icon: 'question',
+		tone: 'bg-hunter-green-900',
+	},
+	{
+		title: 'El Ritual de la Ducha',
+		body: 'Dedica unos minutos a tu piel: haz espuma sobre la piel húmeda, disfruta el aroma y el masaje, y enjuaga con agua tibia. Un pequeño momento de bienestar.',
+		icon: 'drop',
+		tone: 'bg-fern-900',
+	},
+	{
+		title: 'Cuida tu Jabón',
+		body: 'Entre usos, déjalo escurrir sobre una jabonera de madera con drenaje. Así dura más y mantiene su textura cremosa durante todo el curado.',
+		icon: 'shield',
+		tone: 'bg-dry-sage-800',
+	},
+	{
+		title: 'Empieza por tu Tipo de Piel',
+		body: 'Piel seca: café y avena o miel y canela. Piel sensible: manzanilla y miel, o lavanda y avena. Piel cansada que pide vitalidad: café y cacao, o menta y hierba luisa. ¡Elige inteligente!',
+		icon: 'sparkle',
+		tone: 'bg-pine-teal-900',
+	},
+];
+---
+
+<section id="guia" class="relative mx-auto max-w-7xl scroll-mt-24 px-4 py-20 sm:px-6 lg:px-8">
+	<!-- Fondo pastel/fierra -->
+	<div
+		class="absolute inset-0 -z-10 bg-gradient-to-b from-[#f2e8d9] via-[#ede3d0] to-[#f2e8d9]"
+		aria-hidden="true"
+	></div>
+
+	<div class="grid grid-cols-1 gap-12 lg:grid-cols-5 lg:gap-16">
+		<!-- Copy / intro didáctica -->
+		<div class="lg:col-span-2">
+			<span class="eyebrow inline-flex items-center gap-3">
+				<span class="h-px w-8 bg-hunter-green-600"></span>
+				Guía JW
+			</span>
+			<h2 class="mt-4 font-serif text-4xl font-medium leading-tight sm:text-5xl">
+				Aprende a Cuidar tu Piel <span class="italic text-hunter-green-600">de Forma Natural</span>
+			</h2>
+			<p class="mt-5 text-base leading-relaxed text-pine-teal-400">
+				La cosmética natural no se trata solo de lo que aplicas, sino de cómo lo eliges y lo
+				usas. Te compartimos una pequeña guía para que aproveches al máximo cada producto JW.
+			</p>
+			<a href="/#catalogo" class="mt-8 inline-flex items-center gap-2 font-medium text-hunter-green-600 transition-colors hover:text-pine-teal">
+				Ver el catálogo
+				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+			</a>
+		</div>
+
+		<!-- Tips -->
+		<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:col-span-3">
+			{chooseTips.map((tip) => (
+				<div
+					data-reveal-grid
+					class="rounded-4xl border border-pine-teal/10 bg-ecru p-7 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-lift"
+				>
+					<div class={`flex h-12 w-12 items-center justify-center rounded-2xl text-white ${tip.tone}`}>
+						{tip.icon === 'question' && (
+							<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><path d="M9.5 9a2.5 2.5 0 1 1 4 2c-.8.6-1.5 1.2-1.5 2.5" /><circle cx="12" cy="16.5" r="0.5" fill="currentColor" /></svg>
+						)}
+						{tip.icon === 'drop' && (
+							<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-3 4.5-6 8.2-6 11.5a6 6 0 0 0 12 0c0-3.3-3-7-6-11.5Z" /></svg>
+						)}
+						{tip.icon === 'shield' && (
+							<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.4-3 8-7 10-4-2-7-5.6-7-10V6l7-3Z" /><path d="m9 12 2 2 4-4" /></svg>
+						)}
+						{tip.icon === 'sparkle' && (
+							<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z" /></svg>
+						)}
+					</div>
+					<h3 class="mt-5 font-serif text-xl font-medium leading-snug text-pine-teal-200">{tip.title}</h3>
+					<p class="mt-2 text-sm leading-relaxed text-pine-teal-400">{tip.body}</p>
+				</div>
+			))}
+		</div>
+	</div>
+</section>

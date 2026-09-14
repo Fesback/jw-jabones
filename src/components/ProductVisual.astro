@@ -1,0 +1,108 @@
+---
+/**
+ * ProductVisual — ilustración SVG del jabón para galerías de producto.
+ * Variantes: bar (vista principal), foam (en uso / espuma), detail (textura).
+ */
+const {
+	soap = '#a08a6a',
+	tone = '#eadfca',
+	variant = 'bar',
+	grain = false,
+} = Astro.props;
+
+const grainSpots = [
+	[150, 225],
+	[218, 235],
+	[180, 250],
+	[232, 220],
+	[198, 214],
+	[252, 238],
+	[170, 242],
+	[216, 256],
+	[242, 210],
+	[190, 232],
+];
+
+const coffeeBeans = [
+	[62, 148],
+	[318, 130],
+	[338, 262],
+	[68, 272],
+	[304, 198],
+];
+
+const body =
+	variant === 'detail'
+		? { x: 55, y: 190, w: 290, h: 105, rx: 60, emboss: 150, embossY: 148, labelY: 262, size: 34 }
+		: { x: 90, y: 205, w: 220, h: 90, rx: 48, emboss: 160, embossY: 168, labelY: 262, size: 26 };
+---
+
+<div class="relative h-full w-full overflow-hidden" style={{ backgroundColor: tone }}>
+	<div class="pointer-events-none absolute -right-8 -top-8 h-36 w-36 rounded-full bg-white/30 blur-2xl" aria-hidden="true"></div>
+	<div class="pointer-events-none absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-black/10 blur-2xl" aria-hidden="true"></div>
+
+	<svg class="absolute inset-0 h-full w-full" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+		<defs>
+			<linearGradient id={`pgrad-${variant}`} x1="0" y1="0" x2="0" y2="1">
+				<stop offset="0%" stop-color={soap} />
+				<stop offset="100%" stop-color="#00000030" />
+			</linearGradient>
+		</defs>
+
+		<!-- Hoja botánica -->
+		<g fill="rgba(74, 90, 58, 0.45)">
+			<path d="M336 44c-4 28-22 46-50 52 6 26 30 42 56 38 8-34-6-66-6-90Z" />
+			<path d="M352 120c-2 18-10 30-24 34 3 16 16 26 30 24 5-20-4-40-6-58Z" />
+		</g>
+
+		<!-- Espuma (solo variante en uso) -->
+		{variant === 'foam' && (
+			<g fill="rgba(255, 255, 255, 0.75)">
+				<ellipse cx="128" cy="244" rx="34" ry="20" />
+				<ellipse cx="180" cy="230" rx="27" ry="18" />
+				<ellipse cx="232" cy="243" rx="30" ry="19" />
+				<ellipse cx="276" cy="255" rx="24" ry="15" />
+				<circle cx="152" cy="262" r="10" />
+				<circle cx="256" cy="222" r="8" />
+				<path d="M96 306c32-22 66-22 98 0s66 22 98 0" fill="none" stroke="rgba(255, 255, 255, 0.6)" stroke-width="7" stroke-linecap="round" />
+			</g>
+		)}
+
+		<!-- Granos de café alrededor (solo jabón de café & cacao) -->
+		{grain &&
+			variant !== 'detail' &&
+			coffeeBeans.map(([cx, cy]) => (
+				<g key={`${cx}-${cy}`} transform={`translate(${cx} ${cy}) rotate(45)`}>
+					<ellipse rx="7.5" ry="4.5" fill="#4a3522" opacity="0.55" />
+					<line x1="-4" y1="0" x2="4" y2="0" stroke="#2c2013" stroke-width="1.4" opacity="0.5" />
+				</g>
+			))}
+
+		<!-- Barra de jabón -->
+		<g>
+			<rect x={body.emboss} y={body.embossY} width={variant === 'detail' ? 100 : 80} height="34" rx="17" fill="rgba(255, 255, 255, 0.45)" />
+			<rect
+				x={body.x}
+				y={body.y}
+				width={body.w}
+				height={body.h}
+				rx={body.rx}
+				fill={`url(#pgrad-${variant})`}
+				stroke="rgba(255, 255, 255, 0.65)"
+				stroke-width="5"
+			/>
+			{(grain ? grainSpots : grainSpots.slice(0, 5)).map(([cx, cy]) => (
+				<circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="3.2" fill="rgba(58, 46, 34, 0.4)" />
+			))}
+			<ellipse
+				cx={variant === 'detail' ? 118 : 132}
+				cy={variant === 'detail' ? 232 : 238}
+				rx="30"
+				ry="14"
+				fill="rgba(255, 255, 255, 0.28)"
+				transform={`rotate(-20 ${variant === 'detail' ? 118 : 132} ${variant === 'detail' ? 232 : 238})`}
+			/>
+			<text x="200" y={body.labelY} text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size={body.size} letter-spacing="4" fill="#3a2e22" font-weight="600" opacity="0.75">JW</text>
+		</g>
+	</svg>
+</div>

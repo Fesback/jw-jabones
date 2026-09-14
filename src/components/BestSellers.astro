@@ -1,0 +1,70 @@
+---
+/**
+ * Testimonios — prueba social que refuerza la sensación premium.
+ */
+const testimonials = [
+	{
+		quote: 'La barra de café y avena cambió mis mañanas: exfolia suave, hidrata a profundidad y me llena de energía positiva para todo el día.',
+		name: 'María G.',
+		role: 'Cliente Jabones Artesanales',
+		initials: 'MG',
+		tone: 'bg-fern-600',
+	},
+	{
+		quote: 'Lavanda y avena es mi ritual nocturno. Una calma profunda, una suavidad aterciopelada y un aroma que agradezco cada noche tras el estrés del día.',
+		name: 'Carolina R.',
+		role: 'Cliente Jabones Artesanales',
+		initials: 'CR',
+		tone: 'bg-hunter-green-600',
+	},
+	{
+		quote: 'Por fin un jabón que no reseca. Manzanilla y miel es suave, calma mis rojeces al instante y cuida perfectamente mi piel delicada.',
+		name: 'Laura M.',
+		role: 'Cliente Jabones Artesanales',
+		initials: 'LM',
+		tone: 'bg-terracotta-600',
+	},
+];
+---
+
+<section class="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+	<div class="rounded-5xl border border-pine-teal/10 bg-ecru p-10 shadow-soft sm:p-14">
+		<div class="mx-auto max-w-2xl text-center">
+			<span class="eyebrow inline-flex items-center gap-3">
+				<span class="h-px w-8 bg-hunter-green-600"></span>
+				Testimonios
+				<span class="h-px w-8 bg-hunter-green-600"></span>
+			</span>
+			<h2 class="mt-4 font-serif text-4xl font-medium sm:text-5xl">
+				Lo que Dicen <span class="italic text-hunter-green-600">Nuestros Clientes</span>
+			</h2>
+		</div>
+
+		<div class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+			{testimonials.map((t) => (
+				<div
+					data-reveal-grid
+					class="flex flex-col rounded-4xl border border-pine-teal/10 bg-dust-grey-800/70 p-8 shadow-soft"
+				>
+					<div class="flex gap-1 text-hunter-green-600" aria-label="5 estrellas">
+						{Array.from({ length: 5 }).map(() => (
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3Z" /></svg>
+						))}
+					</div>
+					<blockquote class="mt-4 flex-1 font-serif text-xl italic leading-relaxed text-pine-teal-200">
+						“{t.quote}”
+					</blockquote>
+					<div class="mt-6 flex items-center gap-3 border-t border-pine-teal/10 pt-5">
+						<span class={`flex h-11 w-11 items-center justify-center rounded-full font-serif text-sm font-semibold text-white ${t.tone}`}>
+							{t.initials}
+						</span>
+						<div>
+							<p class="text-sm font-semibold text-pine-teal-200">{t.name}</p>
+							<p class="text-xs text-pine-teal-400">{t.role}</p>
+						</div>
+					</div>
+				</div>
+			))}
+		</div>
+	</div>
+</section>

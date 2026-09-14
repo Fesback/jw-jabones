@@ -1,0 +1,72 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import ValueProposition from '../components/ValueProposition.astro';
+import Catalog from '../components/Catalog.astro';
+import Guide from '../components/Guide.astro';
+import Process from '../components/Process.astro';
+import BrandStory from '../components/BrandStory.astro';
+import BestSellers from '../components/BestSellers.astro';
+import OurPromise from '../components/OurPromise.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+	<Header />
+	<main>
+		<Hero />
+		<ValueProposition />
+		<Catalog />
+		<Guide />
+		<Process />
+		<BrandStory />
+		<BestSellers />
+		<OurPromise />
+	</main>
+	<Footer />
+
+	<script>
+		import { gsap } from 'gsap';
+		import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+		gsap.registerPlugin(ScrollTrigger);
+
+		// Hero copy entrance
+		const heroCopy = document.querySelector('.hero-copy');
+		if (heroCopy) {
+			gsap.fromTo(
+				heroCopy.children,
+				{ y: 30, opacity: 0 },
+				{ y: 0, opacity: 1, stagger: 0.12, duration: 1, ease: 'power3.out' }
+			);
+		}
+
+		// Hero visual entrance
+		const heroBanner = document.querySelector('.hero-banner');
+		if (heroBanner) {
+			gsap.fromTo(
+				heroBanner,
+				{ opacity: 0, y: 20 },
+				{ opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', delay: 0.15 }
+			);
+		}
+
+		// Scroll reveal
+		gsap.utils
+			.toArray(['[data-reveal]', '[data-reveal-grid] > *', '[data-reveal-product]'])
+			.forEach((el) => {
+				gsap.fromTo(
+					el,
+					{ opacity: 0, y: 40 },
+					{
+						opacity: 1,
+						y: 0,
+						duration: 0.9,
+						ease: 'power3.out',
+						scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+					}
+				);
+			});
+	</script>
+</Layout>

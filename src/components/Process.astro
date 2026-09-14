@@ -1,0 +1,79 @@
+---
+/**
+ * Proceso — saponificación en frío explicada en pasos didácticos, id #proceso.
+ */
+const steps = [
+	{
+		title: 'Selección de Ingredientes',
+		body: 'Elegimos a mano aceites vírgenes, mantecas y botánica de pequeños productores. Sin aditivos ni conservantes sintéticos.',
+		icon: 'leaf',
+		tone: 'bg-hunter-green-800',
+	},
+	{
+		title: 'Mezcla y Saponificación',
+		body: 'Combinamos los aceites con una solución alcalina a baja temperatura. La química natural convierte todo en un limpiador nutritivo.',
+		icon: 'mix',
+		tone: 'bg-fern-800',
+	},
+	{
+		title: 'Moldeado y Corte',
+		body: 'Vertemos la mezcla en moldes, la dejamos fraguar y cortamos cada barra a mano en pequeños lotes artesanales.',
+		icon: 'cut',
+		tone: 'bg-dry-sage-700',
+	},
+	{
+		title: 'Curado de 4 a 6 Semanas',
+		body: 'Las barras reposan y maduran hasta alcanzar un pH equilibrado, suavidad y una espuma cremosa y duradera.',
+		icon: 'clock',
+		tone: 'bg-pine-teal-800',
+	},
+];
+---
+
+<section id="proceso" class="relative mx-auto max-w-7xl scroll-mt-24 px-4 py-20 sm:px-6 lg:px-8">
+	<div class="mx-auto max-w-2xl text-center">
+		<span class="eyebrow inline-flex items-center gap-3">
+			<span class="h-px w-8 bg-hunter-green-600"></span>
+			Nuestro Proceso
+			<span class="h-px w-8 bg-hunter-green-600"></span>
+		</span>
+		<h2 class="mt-4 font-serif text-4xl font-medium sm:text-5xl">
+			Del Taller a tu Piel, <span class="italic text-hunter-green-600">Paso a Paso</span>
+		</h2>
+		<p class="mt-4 text-base leading-relaxed text-pine-teal-400">
+			La saponificación en frío preserva la glicerina y todos los nutrientes que los jabones
+			industriales extraen. Así hacemos cada uno de nuestros productos.
+		</p>
+	</div>
+
+	<div class="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+		{steps.map((step, i) => (
+			<div
+				data-reveal-grid
+				class="group relative overflow-hidden rounded-4xl border border-pine-teal/10 bg-ecru p-7 shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lift"
+			>
+				<span class="absolute right-5 top-4 font-serif text-6xl font-medium text-pine-teal/5 transition-colors duration-300 group-hover:text-hunter-green/15">
+					0{i + 1}
+				</span>
+				<div class={`flex h-14 w-14 items-center justify-center rounded-2xl text-white ${step.tone}`}>
+					{step.icon === 'leaf' && (
+						<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21C12 8 17 3 21 3c0 11-4 18-9 18Zm0 0c0-8-5-11-9-11" /></svg>
+					)}
+					{step.icon === 'mix' && (
+						<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8c2-2 4-2 6 0s4 2 6 0l3-3" /><path d="M4 16c2-2 4-2 6 0s4 2 6 0l3-3" /><path d="M4 8l0 8M20 5l0 8" /></svg>
+					)}
+					{step.icon === 'cut' && (
+						<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5" /><circle cx="6" cy="18" r="2.5" /><path d="M8.5 7.5 20 19M8.5 16.5 20 5M14 12l2 2" /></svg>
+					)}
+					{step.icon === 'clock' && (
+						<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+					)}
+				</div>
+				<h3 class="relative mt-6 font-serif text-xl font-medium leading-snug text-pine-teal-200">
+					{step.title}
+				</h3>
+				<p class="relative mt-2 text-sm leading-relaxed text-pine-teal-400">{step.body}</p>
+			</div>
+		))}
+	</div>
+</section>

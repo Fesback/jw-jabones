@@ -1,0 +1,85 @@
+---
+/**
+ * Hero — fondo de imagen a pantalla completa con scrim cálido premium.
+ * Sin imagen lateral; el foco está en la copia y la marca JW.
+ */
+const bgImage =
+	'https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&fit=crop&w=1920&q=80';
+
+const trustBadges = [
+	'Saponificado en Frío',
+	'100% Natural & Vegano',
+	'Cruelty Free',
+	'Hecho a Mano',
+];
+---
+
+<section id="inicio" class="hero-banner relative flex min-h-[88vh] items-center overflow-hidden border-b border-pine-teal/10">
+	<!-- Imagen de fondo -->
+	<img
+		src={bgImage}
+		alt="Jabones artesanales JW elaborados a mano"
+		class="absolute inset-0 h-full w-full object-cover object-center"
+		loading="eager"
+	/>
+
+	<!-- Scrim premium (verde profundo a transparente) -->
+	<div
+		class="absolute inset-0 bg-gradient-to-r from-pine-teal/75 via-pine-teal/45 to-pine-teal/15"
+		aria-hidden="true"
+	></div>
+	<div
+		class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#f2e8d9] to-transparent"
+		aria-hidden="true"
+	></div>
+
+	<div class="relative z-10 mx-auto w-full max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+		<div class="hero-copy max-w-2xl">
+			<span class="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 backdrop-blur-sm">
+				<span class="h-2 w-2 rounded-full bg-dust-grey-400"></span>
+				<span class="text-[11px] font-medium uppercase tracking-widest3 text-white">
+					Cuidado Artesanal Premium
+				</span>
+			</span>
+
+			<h1
+				class="mt-6 font-serif text-4xl leading-[1.1] font-semibold text-white drop-shadow-sm sm:text-6xl sm:leading-[1.05] lg:text-[4.3rem]"
+			>
+				Jabones
+				<span class="italic font-medium text-[#e0cba4]">artesanales</span>
+				hechos a mano
+			</h1>
+
+			<p class="mt-6 max-w-xl text-base leading-relaxed text-white/90 sm:text-lg">
+				En <span class="font-semibold text-white">JW</span> transformamos botánica pura en
+				rituales de belleza. Saponificación en frío, pequeños lotes y un cuidado premium para
+				una piel visiblemente más sana.
+			</p>
+
+			<div class="mt-9 flex flex-wrap items-center gap-4">
+				<a href="/#catalogo" class="group inline-flex items-center justify-center gap-2 rounded-full bg-terracotta px-6 py-4 text-sm font-semibold uppercase tracking-widest2 text-white shadow-lift transition-all duration-300 hover:bg-terracotta-600 hover:-translate-y-0.5">
+					Explorar Catálogo
+					<svg class="transition-transform duration-300 group-hover:translate-x-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+				</a>
+				<a href="/#proceso" class="inline-flex items-center justify-center gap-2 rounded-full border border-white/40 bg-white/10 px-6 py-4 text-sm font-semibold uppercase tracking-widest2 text-white backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-terracotta">
+					Descubre Nuestro Proceso
+				</a>
+			</div>
+
+			<!-- Trust badges -->
+			<div class="mt-12 grid max-w-xl grid-cols-2 gap-x-6 gap-y-5 border-t border-white/25 pt-7 sm:grid-cols-4">
+				{trustBadges.map((badge) => (
+					<div class="flex flex-col items-start gap-2.5">
+						<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f2e8d9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							<path d="M12 3l7 3v5c0 4.4-3 8-7 10-4-2-7-5.6-7-10V6l7-3Z" />
+							<path d="m8.8 12 2.2 2.2 4.2-4.4" />
+						</svg>
+						<span class="text-[11px] font-medium uppercase tracking-[0.12em] text-white/90">
+							{badge}
+						</span>
+					</div>
+				))}
+			</div>
+		</div>
+	</div>
+</section>

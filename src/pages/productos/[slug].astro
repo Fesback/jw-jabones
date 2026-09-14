@@ -1,0 +1,258 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ProductVisual from '../../components/ProductVisual.astro';
+import { products } from '../../data/products';
+import { whatsappUrl } from '../../data/site';
+
+export function getStaticPaths() {
+	return products.map((product) => ({ params: { slug: product.slug }, props: { product } }));
+}
+
+const { product } = Astro.props;
+const related = products.filter((p) => p.slug !== product.slug).slice(0, 3);
+const buyUrl = whatsappUrl(
+	`Hola, quiero comprar el jabón ${product.name} (S/ ${product.price}.00). ¿Cómo hago mi pedido?`
+);
+
+const trustSeals = [
+	{ label: '100% Natural', icon: 'leaf' },
+	{ label: 'Cruelty-Free', icon: 'heart' },
+	{ label: 'Eco-Amigable', icon: 'globe' },
+	{ label: 'Satisfacción Garantizada', icon: 'shield' },
+];
+---
+
+<Layout
+	title={`${product.name} | JW Jabonería Artesanal`}
+	description={`${product.name}: ${product.blurb} Jabón artesanal peruano elaborado a mano.`}
+>
+	<Header />
+
+	<main>
+		<!-- Barra superior -->
+		<div class="border-b border-pine-teal/10 bg-ecru/60 py-3.5">
+			<div class="mx-auto flex max-w-7xl items-center gap-2 px-4 text-[11px] font-medium uppercase tracking-widest2 text-pine-teal-400 sm:px-6 lg:px-8">
+				<a href="/#catalogo" class="transition-colors hover:text-terracotta">Catálogo</a>
+				<span aria-hidden="true">/</span>
+				<span class="text-pine-teal-600">{product.name}</span>
+			</div>
+		</div>
+
+		<!-- Ficha principal -->
+		<section class="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+			<div
+				class="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
+				aria-hidden="true"
+			>
+				<div class="absolute right-0 top-0 h-80 w-80 rounded-full bg-terracotta/10 blur-3xl"></div>
+				<div class="absolute -left-24 bottom-0 h-80 w-80 rounded-full bg-hunter-green-700/20 blur-3xl"></div>
+			</div>
+
+			<div class="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-14">
+				<!-- Galería -->
+				<div class="lg:sticky lg:top-24 lg:self-start">
+					<div class="overflow-hidden rounded-4xl border border-pine-teal/10 shadow-soft">
+						<ProductVisual soap={product.soap} tone={product.tone} variant="bar" grain={product.grain} />
+					</div>
+					<div class="mt-4 grid grid-cols-2 gap-4">
+						<div class="overflow-hidden rounded-3xl border border-pine-teal/10 shadow-soft">
+							<ProductVisual soap={product.soap} tone={product.tone} variant="detail" grain={product.grain} />
+						</div>
+						<div class="overflow-hidden rounded-3xl border border-pine-teal/10 shadow-soft">
+							<ProductVisual soap={product.soap} tone={product.tone} variant="foam" grain={product.grain} />
+						</div>
+					</div>
+					<p class="mt-3 px-2 text-xs text-pine-teal-400">
+						{product.texture}. Fotografía: vista principal, detalle de textura y en uso.
+					</p>
+				</div>
+
+				<!-- Información -->
+				<div>
+					<span class="eyebrow inline-flex items-center gap-3">
+						<span class="h-px w-8 bg-hunter-green-600"></span>
+						{product.category}
+					</span>
+					<h1 class="mt-4 font-serif text-4xl font-medium leading-[1.05] sm:text-5xl">
+						{product.name}
+					</h1>
+
+					<!-- Propiedades -->
+					<div class="mt-6 flex flex-wrap gap-2.5">
+						{product.benefits.map((benefit) => (
+							<span class="inline-flex items-center gap-2 rounded-full border border-hunter-green-600/25 bg-hunter-green-900/60 px-4 py-2 text-[11px] font-medium uppercase tracking-widest2 text-hunter-green-600">
+								<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7" /></svg>
+								{benefit}
+							</span>
+						))}
+					</div>
+
+					<p class="mt-7 max-w-xl text-base leading-relaxed text-pine-teal-400">
+						{product.description}
+					</p>
+
+					<!-- Precio y compra -->
+					<div class="mt-9 rounded-4xl border border-pine-teal/10 bg-ecru p-7 shadow-soft">
+						<div class="flex items-end justify-between gap-4">
+							<div>
+								<span class="text-[10px] font-medium uppercase tracking-widest2 text-pine-teal-400">Precio</span>
+								<p class="mt-1 font-serif text-4xl font-medium text-pine-teal-200">S/ {product.price}.00</p>
+							</div>
+							<div class="text-right">
+								<svg class="ml-auto text-hunter-green-600" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg>
+								<p class="mt-1 text-xs text-pine-teal-400">{product.format}</p>
+							</div>
+						</div>
+						<a
+							href={buyUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-terracotta px-8 py-4 text-sm font-semibold uppercase tracking-widest2 text-white shadow-glow transition-all duration-300 hover:bg-terracotta-600"
+						>
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2L5 8Z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></svg>
+							Comprar ahora
+						</a>
+
+						<div class="mt-6 space-y-3 border-t border-pine-teal/10 pt-5">
+							<div class="flex items-center justify-between gap-4 text-sm">
+								<span class="text-pine-teal-400">Peso</span>
+								<span class="font-medium text-pine-teal-200">{product.weight}</span>
+							</div>
+							<div class="flex items-center justify-between gap-4 text-sm">
+								<span class="text-pine-teal-400">Proceso de obtención</span>
+								<span class="font-medium text-pine-teal-200">{product.process}</span>
+							</div>
+							<div class="text-sm">
+								<span class="text-pine-teal-400">Descripción aromática</span>
+								<p class="mt-1 leading-relaxed text-pine-teal-200/80">{product.aroma}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Sección técnica -->
+		<section class="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
+			<div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+				<div class="rounded-4xl border border-pine-teal/10 bg-ecru p-7 shadow-soft">
+					<div class="flex items-center gap-3">
+						<span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-hunter-green-800 text-hunter-green-100">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-3 4.5-6 8.2-6 11.5a6 6 0 0 0 12 0c0-3.3-3-7-6-11.5Z" /></svg>
+						</span>
+						<h2 class="font-sans text-xs font-semibold uppercase tracking-widest2 text-pine-teal-200">Modo de uso</h2>
+					</div>
+					<ol class="mt-5 space-y-3">
+						{product.howToUse.map((step, i) => (
+							<li class="flex gap-3 text-sm leading-relaxed text-pine-teal-400">
+								<span class="font-serif text-lg font-medium text-terracotta">{i + 1}</span>
+								<span>{step}</span>
+							</li>
+						))}
+					</ol>
+				</div>
+
+				<div class="rounded-4xl border border-pine-teal/10 bg-ecru p-7 shadow-soft">
+					<div class="flex items-center gap-3">
+						<span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-dry-sage-800 text-dry-sage-100">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><path d="M9 12l2 2 4-4" /></svg>
+						</span>
+						<h2 class="font-sans text-xs font-semibold uppercase tracking-widest2 text-pine-teal-200">Precauciones</h2>
+					</div>
+					<ul class="mt-5 space-y-3">
+						{product.precautions.map((precaution) => (
+							<li class="flex gap-3 text-sm leading-relaxed text-pine-teal-400">
+								<span class="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-terracotta"></span>
+								<span>{precaution}</span>
+							</li>
+						))}
+					</ul>
+				</div>
+
+				<div class="rounded-4xl border border-pine-teal/10 bg-ecru p-7 shadow-soft">
+					<div class="flex items-center gap-3">
+						<span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-fern-800 text-fern-100">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21C12 8 17 3 21 3c0 11-4 18-9 18Zm0 0c0-8-5-11-9-11" /></svg>
+						</span>
+						<h2 class="font-sans text-xs font-semibold uppercase tracking-widest2 text-pine-teal-200">Ingredientes</h2>
+					</div>
+					<div class="mt-5 flex flex-wrap gap-2.5">
+						{product.ingredients.map((ingredient) => (
+							<span class="rounded-full border border-hunter-green-600/25 bg-hunter-green-900/60 px-4 py-2 text-[11px] font-medium uppercase tracking-widest2 text-hunter-green-600">
+								{ingredient}
+							</span>
+						))}
+					</div>
+					<p class="mt-5 text-xs leading-relaxed text-pine-teal-400">
+						100% ingredientes de origen natural. Sin parabenos, sin sulfatos y sin aditivos
+						sintéticos.
+					</p>
+				</div>
+			</div>
+
+			<!-- Sellos de confianza -->
+			<div class="mt-10 grid grid-cols-2 gap-6 rounded-4xl border border-pine-teal/10 bg-ecru/60 p-8 shadow-soft sm:grid-cols-4">
+				{trustSeals.map((seal) => (
+					<div class="flex flex-col items-center gap-3 text-center">
+						<span class="flex h-12 w-12 items-center justify-center rounded-full bg-hunter-green-800 text-hunter-green-100">
+							{seal.icon === 'leaf' && (
+								<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21C12 8 17 3 21 3c0 11-4 18-9 18Zm0 0c0-8-5-11-9-11" /></svg>
+							)}
+							{seal.icon === 'heart' && (
+								<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21C8 17 4 13.5 4 9.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 8 2.5c0 4-4 7.5-8 11.5Z" /></svg>
+							)}
+							{seal.icon === 'globe' && (
+								<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.8 2.6 4 5.5 4 9s-1.2 6.4-4 9c-2.8-2.6-4-5.5-4-9s1.2-6.4 4-9Z" /></svg>
+							)}
+							{seal.icon === 'shield' && (
+								<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.4-3 8-7 10-4-2-7-5.6-7-10V6l7-3Z" /><path d="m9 12 2 2 4-4" /></svg>
+							)}
+						</span>
+						<span class="text-[11px] font-medium uppercase tracking-widest2 text-pine-teal-300">
+							{seal.label}
+						</span>
+					</div>
+				))}
+			</div>
+		</section>
+
+		<!-- Relacionados -->
+		{related.length > 0 && (
+			<section class="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
+				<div class="flex items-end justify-between gap-4">
+					<h2 class="font-serif text-3xl font-medium sm:text-4xl">
+						También te puede <span class="italic text-hunter-green-600">gustar</span>
+					</h2>
+					<a href="/#catalogo" class="hidden shrink-0 items-center gap-2 text-sm font-medium text-hunter-green-600 transition-colors hover:text-terracotta sm:inline-flex">
+						Ver catálogo
+						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+					</a>
+				</div>
+				<div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+					{related.map((p) => (
+						<a
+							href={`/productos/${p.slug}`}
+							class="group flex items-center gap-5 overflow-hidden rounded-4xl border border-pine-teal/10 bg-ecru p-4 pr-6 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-lift"
+						>
+							<div class="h-24 w-24 shrink-0 overflow-hidden rounded-2xl border border-pine-teal/10">
+								<ProductVisual soap={p.soap} tone={p.tone} variant="bar" grain={p.grain} />
+							</div>
+							<div class="min-w-0">
+								<h3 class="truncate font-serif text-lg font-medium leading-snug text-pine-teal-200">
+									{p.name} <span class="italic text-hunter-green-600">{p.shortName}</span>
+								</h3>
+								<p class="mt-1 text-xs text-pine-teal-400">{p.weight}</p>
+								<p class="mt-2 font-medium text-pine-teal-200">S/ {p.price}.00</p>
+							</div>
+							<svg class="ml-auto h-5 w-5 shrink-0 text-pine-teal-400 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+						</a>
+					))}
+				</div>
+			</section>
+		)}
+	</main>
+
+	<Footer />
+</Layout>
