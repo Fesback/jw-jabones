@@ -3,8 +3,7 @@
  * Hero — fondo de imagen a pantalla completa con scrim cálido premium.
  * Sin imagen lateral; el foco está en la copia y la marca JW.
  */
-const bgImage =
-	'https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&fit=crop&w=1920&q=80';
+import bannerImage from '../assets/banner.jpeg';
 
 const trustBadges = [
 	'Saponificado en Frío',
@@ -17,7 +16,7 @@ const trustBadges = [
 <section id="inicio" class="hero-banner relative flex min-h-[88vh] items-center overflow-hidden border-b border-pine-teal/10">
 	<!-- Imagen de fondo -->
 	<img
-		src={bgImage}
+		src={bannerImage.src}
 		alt="Jabones artesanales JW elaborados a mano"
 		class="absolute inset-0 h-full w-full object-cover object-center"
 		loading="eager"
