@@ -69,23 +69,32 @@ const highlights = [
 				>
 					<div
 						style={{ backgroundColor: product.tone }}
-						class="relative aspect-[4/3] overflow-hidden"
-					>
-						<svg
-							class="absolute left-1/2 top-1/2 h-[72%] -translate-x-1/2 -translate-y-1/2 drop-shadow-xl transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-2"
-							viewBox="0 0 120 90"
-							aria-hidden="true"
+class="relative aspect-[3/4] overflow-hidden"
 						>
-							<defs>
-								<linearGradient id={`cg-soap-${gi}`} x1="0" y1="0" x2="0" y2="1">
-									<stop offset="0%" stop-color={product.soap} />
-									<stop offset="100%" stop-color="#00000018" />
-								</linearGradient>
-							</defs>
-							<rect x="14" y="38" width="92" height="38" rx="20" fill={`url(#cg-soap-${gi})`} stroke="#FFFFFF99" stroke-width="2" />
-							<rect x="34" y="30" width="52" height="16" rx="8" fill="#FFFFFF66" />
-							<text x="60" y="60" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="15" letter-spacing="2" fill="#3a2e22" font-weight="600">JW</text>
-						</svg>
+							{product.image ? (
+								<img
+									src={product.image.src}
+									alt={product.name}
+									loading="lazy"
+									class="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+								/>
+							) : (
+							<svg
+								class="absolute left-1/2 top-1/2 h-[72%] -translate-x-1/2 -translate-y-1/2 drop-shadow-xl transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-2"
+								viewBox="0 0 120 90"
+								aria-hidden="true"
+							>
+								<defs>
+									<linearGradient id={`cg-soap-${gi}`} x1="0" y1="0" x2="0" y2="1">
+										<stop offset="0%" stop-color={product.soap} />
+										<stop offset="100%" stop-color="#00000018" />
+									</linearGradient>
+								</defs>
+								<rect x="14" y="38" width="92" height="38" rx="20" fill={`url(#cg-soap-${gi})`} stroke="#FFFFFF99" stroke-width="2" />
+								<rect x="34" y="30" width="52" height="16" rx="8" fill="#FFFFFF66" />
+								<text x="60" y="60" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="15" letter-spacing="2" fill="#3a2e22" font-weight="600">JW</text>
+							</svg>
+						)}
 					</div>
 
 					<div class="flex flex-1 flex-col p-5">

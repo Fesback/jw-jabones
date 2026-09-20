@@ -54,7 +54,21 @@ const trustSeals = [
 				<!-- Galería -->
 				<div class="lg:sticky lg:top-24 lg:self-start">
 					<div class="overflow-hidden rounded-4xl border border-pine-teal/10 shadow-soft">
-						<ProductVisual soap={product.soap} tone={product.tone} variant="bar" grain={product.grain} />
+{product.image ? (
+							<div
+								class="relative aspect-[3/4] w-full overflow-hidden"
+								style={{ backgroundColor: product.tone }}
+							>
+								<img
+									src={product.image.src}
+									alt={product.name}
+									loading="eager"
+									class="absolute inset-0 h-full w-full object-cover object-center"
+								/>
+							</div>
+						) : (
+							<ProductVisual soap={product.soap} tone={product.tone} variant="bar" grain={product.grain} />
+						)}
 					</div>
 					<div class="mt-4 grid grid-cols-2 gap-4">
 						<div class="overflow-hidden rounded-3xl border border-pine-teal/10 shadow-soft">

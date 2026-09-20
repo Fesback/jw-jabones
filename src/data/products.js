@@ -1,7 +1,16 @@
+import cafeAvenaImage from '../assets/cafeyavena.png';
+import aloeVeraImage from '../assets/aloevera.jpg';
+import maicenaImage from '../assets/maicena.jpg';
+import cafeCacaoImage from '../assets/cafeycacao.jpg';
+import lavandaImage from '../assets/lavanda.jpg';
+import mentaImage from '../assets/menta.jpg';
+import manzanillaImage from '../assets/manzanilla.jpg';
+
 export const products = [
 	{
 		slug: 'cafe-avena',
 		name: 'Café & Avena',
+		image: cafeAvenaImage,
 		tag: 'Exfoliante',
 		category: 'Jabón artesanal',
 		format: 'Barra sólida de 80 g',
@@ -35,6 +44,7 @@ export const products = [
 	{
 		slug: 'aloe-vera',
 		name: 'Aloé Vera',
+		image: aloeVeraImage,
 		tag: 'Regenerador',
 		category: 'Jabón artesanal',
 		format: 'Barra sólida de 80 g',
@@ -68,6 +78,7 @@ export const products = [
 	{
 		slug: 'arroz-maicena',
 		name: 'Arroz & Maicena',
+		image: maicenaImage,
 		tag: 'Aclarante',
 		category: 'Jabón artesanal',
 		format: 'Barra sólida de 80 g',
@@ -106,6 +117,7 @@ export const products = [
 	{
 		slug: 'miel-canela',
 		name: 'Miel & Canela',
+		image: null,
 		tag: 'Estimulante',
 		category: 'Jabón artesanal',
 		format: 'Barra sólida de 80 g',
@@ -139,6 +151,7 @@ export const products = [
 	{
 		slug: 'cafe-cacao',
 		name: 'Café & Cacao',
+		image: cafeCacaoImage,
 		tag: 'Exfoliante',
 		category: 'Jabón artesanal',
 		format: 'Barra sólida de 80 g',
@@ -172,6 +185,7 @@ export const products = [
 	{
 		slug: 'lavanda-avena',
 		name: 'Lavanda & Avena',
+		image: lavandaImage,
 		tag: 'Calmante',
 		category: 'Jabón artesanal',
 		format: 'Barra sólida de 80 g',
@@ -210,6 +224,7 @@ export const products = [
 	{
 		slug: 'menta-hierbaluisa',
 		name: 'Menta & Hierba Luisa',
+		image: mentaImage,
 		tag: 'Refrescante',
 		category: 'Jabón artesanal',
 		format: 'Barra sólida de 80 g',
@@ -248,6 +263,7 @@ export const products = [
 	{
 		slug: 'manzanilla-miel',
 		name: 'Manzanilla & Miel',
+		image: manzanillaImage,
 		tag: 'Calmante',
 		category: 'Jabón artesanal',
 		format: 'Barra sólida de 80 g',
