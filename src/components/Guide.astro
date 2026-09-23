@@ -2,6 +2,8 @@
 /**
  * Guía — sección didáctica: cómo elegir tu producto y cómo cuidarlo.
  */
+import ban2Image from '../assets/ban2.jpeg';
+
 const chooseTips = [
 	{
 		title: '¿Cuál es tu Jabón Corporal?',
@@ -51,11 +53,23 @@ const chooseTips = [
 				La cosmética natural no se trata solo de lo que aplicas, sino de cómo lo eliges y lo
 				usas. Te compartimos una pequeña guía para que aproveches al máximo cada producto JW.
 			</p>
-			<a href="/#catalogo" class="mt-8 inline-flex items-center gap-2 font-medium text-hunter-green-600 transition-colors hover:text-pine-teal">
-				Ver el catálogo
-				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
-			</a>
-		</div>
+<a href="/#catalogo" class="mt-8 inline-flex items-center gap-2 rounded-full py-2 font-medium text-hunter-green-600 transition-colors hover:text-pine-teal">
+					Ver el catálogo
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+				</a>
+
+				<!-- Imagen premium acoplada: ban2 -->
+				<div class="relative mt-7 overflow-hidden rounded-4xl border border-pine-teal/10 shadow-soft">
+					<img
+						src={ban2Image.src}
+						alt="Cosmética natural premium JW"
+						loading="lazy"
+						width={ban2Image.width}
+						height={ban2Image.height}
+						class="h-auto w-full object-cover object-center"
+					/>
+				</div>
+			</div>
 
 		<!-- Tips -->
 		<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:col-span-3">

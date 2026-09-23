@@ -34,9 +34,9 @@ const trustSeals = [
 		<!-- Barra superior -->
 		<div class="border-b border-pine-teal/10 bg-ecru/60 py-3.5">
 			<div class="mx-auto flex max-w-7xl items-center gap-2 px-4 text-[11px] font-medium uppercase tracking-widest2 text-pine-teal-400 sm:px-6 lg:px-8">
-				<a href="/#catalogo" class="transition-colors hover:text-terracotta">Catálogo</a>
+				<a href="/#catalogo" class="shrink-0 transition-colors hover:text-terracotta">Catálogo</a>
 				<span aria-hidden="true">/</span>
-				<span class="text-pine-teal-600">{product.name}</span>
+				<span class="min-w-0 truncate text-pine-teal-600">{product.name}</span>
 			</div>
 		</div>
 
@@ -71,10 +71,10 @@ const trustSeals = [
 						)}
 					</div>
 					<div class="mt-4 grid grid-cols-2 gap-4">
-						<div class="overflow-hidden rounded-3xl border border-pine-teal/10 shadow-soft">
+						<div class="aspect-[3/4] overflow-hidden rounded-3xl border border-pine-teal/10 shadow-soft">
 							<ProductVisual soap={product.soap} tone={product.tone} variant="detail" grain={product.grain} />
 						</div>
-						<div class="overflow-hidden rounded-3xl border border-pine-teal/10 shadow-soft">
+						<div class="aspect-[3/4] overflow-hidden rounded-3xl border border-pine-teal/10 shadow-soft">
 							<ProductVisual soap={product.soap} tone={product.tone} variant="foam" grain={product.grain} />
 						</div>
 					</div>

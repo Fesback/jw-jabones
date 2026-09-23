@@ -4,6 +4,7 @@
  */
 import { products } from '../data/products';
 import { whatsappUrl } from '../data/site';
+import Kits from './Kits.astro';
 
 const highlights = [
 	{ label: 'Saponificación en Frío', icon: 'snow' },
@@ -41,7 +42,7 @@ const highlights = [
 				data-carousel-prev
 				type="button"
 				aria-label="Anterior"
-				class="flex h-10 w-10 items-center justify-center rounded-full border border-pine-teal/20 text-pine-teal-300 transition-all duration-300 hover:border-terracotta hover:bg-terracotta hover:text-white disabled:cursor-not-allowed disabled:opacity-30 disabled:pointer-events-none"
+				class="flex h-11 w-11 items-center justify-center rounded-full border border-pine-teal/20 text-pine-teal-300 transition-all duration-300 hover:border-terracotta hover:bg-terracotta hover:text-white disabled:cursor-not-allowed disabled:opacity-30 disabled:pointer-events-none"
 			>
 				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6" /></svg>
 			</button>
@@ -49,23 +50,61 @@ const highlights = [
 				data-carousel-next
 				type="button"
 				aria-label="Siguiente"
-				class="flex h-10 w-10 items-center justify-center rounded-full border border-pine-teal/20 text-pine-teal-300 transition-all duration-300 hover:border-terracotta hover:bg-terracotta hover:text-white disabled:cursor-not-allowed disabled:opacity-30 disabled:pointer-events-none"
+				class="flex h-11 w-11 items-center justify-center rounded-full border border-pine-teal/20 text-pine-teal-300 transition-all duration-300 hover:border-terracotta hover:bg-terracotta hover:text-white disabled:cursor-not-allowed disabled:opacity-30 disabled:pointer-events-none"
 			>
 				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
 			</button>
 		</div>
 	</div>
 
-	<!-- Carrusel de productos -->
-	<div class="mt-14">
+	<!-- Toggle Individuales / Kits -->
+	<div class="mt-10 flex justify-center">
+		<div
+			role="tablist"
+			aria-label="Elegir entre jabones individuales o kits"
+			data-kits-toggle
+			class="relative inline-flex rounded-full border border-pine-teal/15 bg-ecru/70 p-1.5 shadow-soft backdrop-blur-sm"
+		>
+			<span
+				data-pill
+				aria-hidden="true"
+				class="absolute inset-y-1.5 left-1.5 w-[calc(50%-0.375rem)] rounded-full bg-hunter-green-800 shadow-glow"
+			></span>
+			<button
+				id="tab-soaps"
+				type="button"
+				role="tab"
+				aria-selected="true"
+				aria-controls="panel-soaps"
+				data-tab="soaps"
+				class="relative z-10 w-32 rounded-full px-2 py-2.5 text-[11px] font-semibold uppercase tracking-widest2 transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta sm:w-44 sm:px-4"
+			>
+				<span data-tab-label class="text-white">Individuales</span>
+			</button>
+			<button
+				id="tab-kits"
+				type="button"
+				role="tab"
+				aria-selected="false"
+				aria-controls="panel-kits"
+				data-tab="kits"
+				class="relative z-10 w-32 rounded-full px-2 py-2.5 text-[11px] font-semibold uppercase tracking-widest2 transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta sm:w-44 sm:px-4"
+			>
+				<span data-tab-label class="text-pine-teal-300">Kits</span>
+			</button>
+		</div>
+	</div>
+
+	<!-- Panel: Jabones individuales -->
+	<div id="panel-soaps" role="tabpanel" aria-labelledby="tab-soaps" data-panel="soaps" class="mt-14">
 		<div
 			data-carousel
-			class="no-scrollbar flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2"
+			class="no-scrollbar flex snap-x snap-mandatory gap-6 overflow-x-auto overscroll-x-contain scroll-smooth pb-2"
 		>
 			{products.map((product, gi) => (
 				<div
 					data-reveal-product
-					class="group flex w-full shrink-0 snap-start flex-col overflow-hidden rounded-4xl border border-pine-teal/10 bg-ecru shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lift sm:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.125rem)]"
+					class="group flex w-[85%] shrink-0 snap-start flex-col overflow-hidden rounded-4xl border border-pine-teal/10 bg-ecru shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lift sm:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.125rem)]"
 				>
 					<div
 						style={{ backgroundColor: product.tone }}
@@ -129,6 +168,11 @@ class="relative aspect-[3/4] overflow-hidden"
 		</div>
 	</div>
 
+	<!-- Panel: Kits & Packs -->
+	<div id="panel-kits" role="tabpanel" aria-labelledby="tab-kits" data-panel="kits" class="mt-14" hidden>
+		<Kits />
+	</div>
+
 	<!-- Franja de confianza -->
 	<div class="mt-12 flex flex-col items-center justify-between gap-8 rounded-4xl border border-pine-teal/10 bg-ecru/60 p-8 shadow-soft sm:flex-row sm:p-10">
 		<div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-5">
@@ -157,11 +201,22 @@ class="relative aspect-[3/4] overflow-hidden"
 </section>
 
 <script>
+	import { gsap } from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	import { buildKitPrice, unitPrice } from '../data/kits';
+
+	gsap.registerPlugin(ScrollTrigger);
+
+	const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	/* ---------- Carrusel de productos ---------- */
 	const carousel = document.querySelector('[data-carousel]');
 	const prevBtn = document.querySelector('[data-carousel-prev]');
 	const nextBtn = document.querySelector('[data-carousel-next]');
 
 	if (carousel && prevBtn && nextBtn) {
+		const card = carousel.querySelector('[data-reveal-product]');
+		const step = card ? card.getBoundingClientRect().width + 24 : carousel.clientWidth;
 		const updateButtons = () => {
 			prevBtn.disabled = carousel.scrollLeft <= 2;
 			nextBtn.disabled =
@@ -169,12 +224,218 @@ class="relative aspect-[3/4] overflow-hidden"
 		};
 
 		prevBtn.addEventListener('click', () => {
-			carousel.scrollBy({ left: -carousel.clientWidth, behavior: 'smooth' });
+			carousel.scrollBy({ left: -step, behavior: 'smooth' });
 		});
 		nextBtn.addEventListener('click', () => {
-			carousel.scrollBy({ left: carousel.clientWidth, behavior: 'smooth' });
+			carousel.scrollBy({ left: step, behavior: 'smooth' });
 		});
 		carousel.addEventListener('scroll', updateButtons, { passive: true });
 		updateButtons();
 	}
+
+	/* ---------- Toggle Individuales / Kits ---------- */
+	const toggle = document.querySelector('[data-kits-toggle]');
+	const pill = toggle?.querySelector('[data-pill]');
+	const tabs = toggle?.querySelectorAll('[data-tab]');
+	const panels = {
+		soaps: document.querySelector('[data-panel="soaps"]'),
+		kits: document.querySelector('[data-panel="kits"]'),
+	};
+
+	const movePill = (index) => {
+		const btn = tabs?.[index];
+		if (!btn || !pill) return;
+		gsap.to(pill, {
+			x: btn.offsetLeft - pill.offsetLeft,
+			width: btn.offsetWidth,
+			duration: 0.4,
+			ease: 'power3.inOut',
+		});
+		tabs.forEach((t, i) => {
+			t.setAttribute('aria-selected', i === index ? 'true' : 'false');
+			t.tabIndex = i === index ? 0 : -1;
+			const label = t.querySelector('[data-tab-label]');
+			if (label) label.classList.toggle('text-white', i === index);
+			if (label) label.classList.toggle('text-pine-teal-300', i !== index);
+		});
+	};
+
+	if (reduceMotion) {
+		tabs?.forEach((t, i) => t.addEventListener('click', () => {
+			const target = panels[t.dataset.tab];
+			Object.values(panels).forEach((p) => { if (p) p.hidden = true; });
+			if (target) target.hidden = false;
+			movePill(i);
+			ScrollTrigger.refresh();
+		}));
+	} else {
+		const switchPanel = (toShow, toHide) => {
+			const hideTl = gsap
+				.timeline({ onComplete: () => { if (toHide) toHide.hidden = true; } });
+
+			if (toHide) {
+				hideTl.to(toHide, { opacity: 0, y: 10, duration: 0.35, ease: 'power2.in' });
+			}
+			hideTl.add(() => {
+					if (toShow) toShow.hidden = false;
+					ScrollTrigger.refresh();
+					window.requestAnimationFrame(() => {
+						gsap.fromTo(
+							toShow,
+							{ opacity: 0, y: 14 },
+							{
+								opacity: 1,
+								y: 0,
+								duration: 0.45,
+								ease: 'power3.out',
+								onComplete: () => ScrollTrigger.refresh()
+							}
+						);
+					});
+				}, 0.32);
+		};
+
+		tabs?.forEach((t, i) =>
+			t.addEventListener('click', () => {
+				const toShow = panels[t.dataset.tab] || null;
+				const toHide =
+					Object.values(panels).find((p) => p && !p.hidden && p !== toShow) || null;
+				movePill(i);
+				if (toShow && toShow.hidden) switchPanel(toShow, toHide);
+			})
+		);
+	}
+
+	/* ---------- Animaciones del panel de kits ---------- */
+	const kitsPanel = panels.kits;
+
+	// Botones magnéticos (WhatsApp)
+	const magnetize = (btn) => {
+		if (reduceMotion) return;
+		const xTo = gsap.quickTo(btn, 'x', { duration: 0.3, ease: 'power3.out' });
+		const yTo = gsap.quickTo(btn, 'y', { duration: 0.3, ease: 'power3.out' });
+		btn.addEventListener('mousemove', (e) => {
+			const r = btn.getBoundingClientRect();
+			xTo((e.clientX - (r.left + r.width / 2)) * 0.25);
+			yTo((e.clientY - (r.top + r.height / 2)) * 0.4);
+		});
+		btn.addEventListener('mouseleave', () => {
+			xTo(0);
+			yTo(0);
+		});
+	};
+	kitsPanel?.querySelectorAll('[data-magnetic]').forEach(magnetize);
+
+	/* ---------- Arma tu Kit (interactivo) ---------- */
+	const initBuildKit = () => {
+		if (!kitsPanel) return;
+		const optionBtns = kitsPanel.querySelectorAll('[data-soap]');
+		const basket = kitsPanel.querySelector('[data-kit-basket]');
+		const basketEmpty = kitsPanel.querySelector('[data-basket-empty]');
+		const totalEl = kitsPanel.querySelector('[data-kit-total]');
+		const originalEl = kitsPanel.querySelector('[data-kit-original]');
+		const saveEl = kitsPanel.querySelector('[data-kit-save]');
+		const buyBtn = kitsPanel.querySelector('[data-kit-buy]');
+		const buyLabel = kitsPanel.querySelector('[data-kit-buy-label]');
+		if (!optionBtns.length || !basket) return;
+
+		let selected = [];
+
+		const setBtnState = (btn, pressed) => {
+			btn.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+			btn.classList.toggle('border-terracotta', pressed);
+			btn.classList.toggle('bg-terracotta/10', pressed);
+			btn.classList.toggle('ring-1', pressed);
+			btn.classList.toggle('ring-terracotta/40', pressed);
+		};
+
+		const render = () => {
+			const names = selected.map((s) => s.dataset.name);
+			const count = names.length;
+			const total = buildKitPrice(count);
+			const original = count * unitPrice;
+			const saving = original - total;
+
+			// Canasta
+			basket.querySelectorAll('[data-basket-item]').forEach((li) => li.remove());
+			if (basketEmpty) basketEmpty.hidden = count > 0;
+			names.forEach((name, i) => {
+				const li = document.createElement('li');
+				li.dataset.basketItem = '';
+				li.textContent = `${i + 1}. ${name}`;
+				li.className =
+					'flex items-center gap-2 rounded-xl border border-pine-teal/10 bg-white/60 px-3 py-2 text-sm text-pine-teal-300';
+				basket.appendChild(li);
+				if (!reduceMotion) {
+					gsap.from(li, { opacity: 0, y: 10, scale: 0.9, duration: 0.45, ease: 'back.out(1.7)' });
+				}
+			});
+
+			// Precio con count-up
+			if (reduceMotion) {
+				if (originalEl) originalEl.textContent = `S/ ${original}.00`;
+				if (totalEl) totalEl.textContent = `S/ ${total}.00`;
+			} else {
+				const from = Number((totalEl?.textContent || '0').replace(/[^0-9]/g, '') || 0);
+				const obj = { v: from };
+				gsap.to(obj, {
+					v: total,
+					duration: 0.45,
+					ease: 'power2.out',
+					onUpdate: () => totalEl && (totalEl.textContent = `S/ ${obj.v.toFixed(0)}.00`),
+				});
+				if (originalEl) originalEl.textContent = `S/ ${original}.00`;
+			}
+
+			if (saveEl) {
+				if (saving > 0) {
+					saveEl.textContent = `Ahorras S/ ${saving}.00`;
+					saveEl.style.opacity = '1';
+				} else {
+					saveEl.style.opacity = '0';
+				}
+			}
+
+			// Botón comprar
+			const ready = count === 3;
+			buyBtn.disabled = !ready;
+			buyBtn.setAttribute('aria-disabled', ready ? 'false' : 'true');
+			buyBtn.classList.toggle('cursor-not-allowed', !ready);
+			buyBtn.classList.toggle('bg-terracotta/40', !ready);
+			buyBtn.classList.toggle('bg-terracotta', ready);
+			buyBtn.classList.toggle('text-white/80', !ready);
+			buyBtn.classList.toggle('shadow-glow', ready);
+			buyLabel.textContent = ready ? `Comprar kit · S/ ${total}.00` : `Elige ${3 - count} jabone${3 - count === 1 ? '' : 's'}`;
+		};
+
+		optionBtns.forEach((btn) =>
+			btn.addEventListener('click', () => {
+				const idx = selected.indexOf(btn);
+				if (idx >= 0) {
+					selected.splice(idx, 1);
+					setBtnState(btn, false);
+				} else if (selected.length < 3) {
+					selected.push(btn);
+					setBtnState(btn, true);
+				}
+				render();
+			})
+		);
+
+		buyBtn?.addEventListener('click', () => {
+			if (buyBtn.disabled) return;
+			const names = selected.map((s) => s.dataset.name);
+			const total = buildKitPrice(selected.length);
+			const url = `https://wa.me/51999999999?text=${encodeURIComponent(
+				`Hola, quiero comprar mi Kit personalizado (${names.join(', ')}) por S/ ${total}.00. ¿Cómo hago mi pedido?`
+			)}`;
+			window.open(url, '_blank', 'noopener,noreferrer');
+		});
+
+		render();
+	};
+	initBuildKit();
+
+	/* Ya visible de inicio (Jabones individuales) */
+	movePill(0);
 </script>
