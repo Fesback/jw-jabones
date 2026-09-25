@@ -8,7 +8,10 @@ const {
 	tone = '#eadfca',
 	variant = 'bar',
 	grain = false,
+	uid = '',
 } = Astro.props;
+
+const gradientId = `pgrad-${variant}${uid ? `-${uid}` : ''}`;
 
 const grainSpots = [
 	[150, 225],
@@ -43,7 +46,7 @@ const body =
 
 	<svg class="absolute inset-0 h-full w-full" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
 		<defs>
-			<linearGradient id={`pgrad-${variant}`} x1="0" y1="0" x2="0" y2="1">
+			<linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
 				<stop offset="0%" stop-color={soap} />
 				<stop offset="100%" stop-color="#00000030" />
 			</linearGradient>
@@ -87,7 +90,7 @@ const body =
 				width={body.w}
 				height={body.h}
 				rx={body.rx}
-				fill={`url(#pgrad-${variant})`}
+				fill={`url(#${gradientId})`}
 				stroke="rgba(255, 255, 255, 0.65)"
 				stroke-width="5"
 			/>
