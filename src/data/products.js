@@ -5,6 +5,7 @@ import cafeCacaoImage from '../assets/cafeycacao.jpg';
 import lavandaImage from '../assets/lavanda.jpg';
 import mentaImage from '../assets/menta.jpg';
 import manzanillaImage from '../assets/manzanilla.jpg';
+import mielCanelaImage from '../assets/mielycanela.jpg';
 
 export const products = [
 	{
@@ -117,7 +118,7 @@ export const products = [
 	{
 		slug: 'miel-canela',
 		name: 'Miel & Canela',
-		image: null,
+		image: mielCanelaImage,
 		tag: 'Estimulante',
 		category: 'Jabón artesanal',
 		format: 'Barra sólida de 80 g',
